@@ -17,8 +17,7 @@ pub fn command() -> Command {
             Arg::new("title")
                 .short('t')
                 .long("title")
-                .help("Title for the bookmark")
-                .required(true),
+                .help("Title for the bookmark (optional)"),
         )
         .arg(
             Arg::new("tags")
@@ -28,9 +27,9 @@ pub fn command() -> Command {
         )
 }
 
-pub fn execute(matches: &clap::ArgMatches, store: &mut Store) -> Result<()> {
+pub fn execute(matches: &clap::ArgMatches, store: &Store) -> Result<()> {
     let url = matches.get_one::<String>("url").unwrap();
-    let title = matches.get_one::<String>("title").unwrap();
+    let title = matches.get_one::<String>("title").map(|s| s.as_str());
     let tags_raw = matches.get_one::<String>("tags").unwrap();
 
     let tags: Vec<String> = tags_raw
@@ -40,7 +39,8 @@ pub fn execute(matches: &clap::ArgMatches, store: &mut Store) -> Result<()> {
         .collect();
 
     let bookmark = store.add(url, title, tags)?;
-    println!("✓ Bookmark added (id: {})", bookmark.id);
+    let display_title = bookmark.title.as_deref().unwrap_or("(no title)");
+    println!("✓ Added [{}] {} — {}", bookmark.id, display_title, bookmark.url);
 
     Ok(())
 }

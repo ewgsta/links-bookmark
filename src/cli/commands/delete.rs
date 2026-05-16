@@ -10,12 +10,12 @@ pub fn command() -> Command {
             Arg::new("id")
                 .help("ID of the bookmark to delete")
                 .required(true)
-                .value_parser(clap::value_parser!(u64)),
+                .value_parser(clap::value_parser!(i64)),
         )
 }
 
-pub fn execute(matches: &clap::ArgMatches, store: &mut Store) -> Result<()> {
-    let id = *matches.get_one::<u64>("id").unwrap();
+pub fn execute(matches: &clap::ArgMatches, store: &Store) -> Result<()> {
+    let id = *matches.get_one::<i64>("id").unwrap();
     store.delete(id)?;
     println!("✓ Bookmark {} deleted.", id);
 
