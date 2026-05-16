@@ -1,10 +1,8 @@
-use serde::{Deserialize, Serialize};
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone)]
 pub struct Bookmark {
-    pub id: u64,
+    pub id: i64,
     pub url: String,
-    pub title: String,
+    pub title: Option<String>,
     pub tags: Vec<String>,
     pub created_at: String,
 }
