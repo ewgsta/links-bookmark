@@ -7,3 +7,8 @@ description = "A CLI tool for managing and organizing links."
 license = "GPL-3.0"
 
 [dependencies]
+clap = "4"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+chrono = "0.4"
+dirs = "6"
