@@ -1,0 +1,9 @@
+[package]
+name = "links-bookmark"
+version = "0.1.0"
+edition = "2024"
+authors = ["ewgsta"]
+description = "A CLI tool for managing and organizing links."
+license = "GPL-3.0"
+
+[dependencies]
